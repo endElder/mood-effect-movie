@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .movie {
+            display: flex;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            gap: 40px;
+            justify-content: space-between;
+        }
+        .movie-poster {
+            width: 150px;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+        .movie-info {
+            flex: 1;
+        }
+        .movie-title {
+            font-family: "Times New Roman", Times, serif;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movies similar to "{{ query }}"</h1>
+    
+    {% if movies %}
+        {% for movie in movies %}
+            <div class="movie">
+                <div class="movie-poster">
+                    {% if movie.poster_path %}
+                        <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="{{ movie.title }}">
+                    {% endif %}
+                </div>
+                <div class="movie-info">
+                    <div class="movie-title">{{ movie.title }} ({{ movie.release_date[:4] }})</div>
+                    <div class="movie-overview">{{ movie.overview }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No similar movies found.</p>
+    {% endif %}
+    
+    <a href="/" class="back-link">← Back</a>
+</body>
+</html>
